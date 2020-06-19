@@ -27,8 +27,16 @@ export class Chat extends React.Component {
           <p></p>
         </div>
         <div className='entrada'>
-          <input onChange={this.onChangeUsuario} value={this.state.usuario} placeholder='Usuário'></input>
-          <input onChange={this.onChangeMensagem} value={this.state.mensagem} placeholder='Mensagem'></input>
+          <input 
+            onChange={this.onChangeUsuario} 
+            value={this.state.usuario} 
+            placeholder='Usuário'>
+          </input>
+          <input 
+            onChange={this.onChangeMensagem} 
+            value={this.state.mensagem} 
+            placeholder='Mensagem'>
+          </input>
           <button onClick={this.onClickBotaoPegaMensagens}>Enviar</button>
         </div>
       </div>
