@@ -2,12 +2,8 @@ import React from 'react'
 
 export class Chat extends React.Component {
   state = {
-    remetente: " ",
     usuario: " ",
-  }
-
-  onChangeRemetente = event => {
-    this.setState({remetente: event.target.value})
+    mensagem: ""
   }
 
   onChangeUsuario = event => {
@@ -15,9 +11,8 @@ export class Chat extends React.Component {
   }
 
   onClickBotaoPegaMensagens = () => {
-    console.log(this.state.remetente)
     console.log(this.state.usuario)
-    this.setState({ remetente: "", usuario: "" })
+    this.setState({ usuario: "" })
   }
 
 }
