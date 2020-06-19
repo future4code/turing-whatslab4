@@ -15,7 +15,8 @@ export class Chat extends React.Component {
   }
 
   onClickBotaoPegaMensagens = () => {
-    
+    console.log(this.state.usuario)
+    this.setState({ usuario: "" })
   }
 
   render(){
