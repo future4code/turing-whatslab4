@@ -1,4 +1,32 @@
-import React from 'react'
+import React from 'react';
+import styled from 'styled-components';
+
+const DivPai = styled.div `
+  margin: 0 auto;
+  width: 30.2%;
+  border: solid 1px black; 
+  height: 100vh; 
+`
+const InputUser = styled.input`
+  width: 40%;
+`
+const InputMsg = styled.input`
+  width: 100%;
+`
+const Enviar = styled.button`
+  width: 20%;
+`
+const CaixaEntrada = styled.div`
+  position: fixed;
+  bottom: 0;
+  display: flex;
+  justify-content: space-around;
+`
+const CaixaSaida = styled.div`
+  bottom: 0;
+  position: fixed;
+  padding: 20px;
+`
 
 export class Chat extends React.Component {
   state = {
@@ -8,46 +36,54 @@ export class Chat extends React.Component {
       mensagem: ''
       }
     ],
-    valorUsuario: "",
-    valorMensagem:""
-  }
-
+    valorUsuario: '',
+    valorMensagem: ''
+  };
 
   onClickBotaoPegaMensagens = () => {
     const newChat = {
       usuario: this.state.valorUsuario,
       mensagem: this.state.valorMensagem
-    }
-    const novoChat = [...this.state.chat, newChat]
+    };
+    const novoChat = [...this.state.chat, newChat];
+    this.setState({chat: novoChat });
+    this.setState({valorUsuario: ''});
+    this.setState({valorMensagem: ''});
+  };
 
-    this.setState({chat: novoChat })
-  
-  }
   onChangeUsuario = (event) => {
-    this.setState({valorUsuario: event.target.value})
-  }
+    this.setState({valorUsuario: event.target.value});
+  };
 
   onChangeMensagem = (event) => {
-    this.setState({valorMensagem: event.target.value})
-  }
+    this.setState({valorMensagem: event.target.value});
+  };
 
   render(){
     const renderizaChat = this.state.chat.map((msg)=>{
       return (
-      <p>{msg.usuario}: {msg.mensagem}</p>
+      <p><strong>{msg.usuario}</strong>: {msg.mensagem}</p>
       )
     })
     return(
-      <div className='Chat'>
-        <div className='saida'>
+      <DivPai>
+        <CaixaSaida>
           <div>{renderizaChat}</div>
-        </div>
-        <div className='entrada'>
-          <input onChange={this.onChangeUsuario} value={this.state.usuario} placeholder='Usuário'></input>
-          <input onChange={this.onChangeMensagem} value={this.state.mensagem} placeholder='Mensagem'></input>
-          <button onClick={this.onClickBotaoPegaMensagens}>Enviar</button>
-        </div>
-      </div>
-    )
-  }
-}
+        </CaixaSaida>
+        <CaixaEntrada>
+          <InputUser 
+            onChange={this.onChangeUsuario} 
+            value={this.state.usuario} 
+            placeholder='Usuário'>
+          </InputUser>
+          <InputMsg 
+            onChange={this.onChangeMensagem} 
+            value={this.state.mensagem} 
+            placeholder='Mensagem'>
+          </InputMsg>
+          <Enviar onClick={this.onClickBotaoPegaMensagens}>Enviar</Enviar>
+        </CaixaEntrada>
+      </DivPai>
+    );
+  };
+};
