@@ -1,32 +1,56 @@
 import React from 'react';
 import styled from 'styled-components';
-import { confirmAlert } from 'react-confirm-alert'
 
-const DivPai = styled.div `
+const DivPai = styled.div`
+  width: 37.5%;
+  border-radius: 25px;
+  border: 5px solid #303438;
+  background: #303438;
   margin: 0 auto;
-  width: 30.2%;
-  border: solid 1px black; 
-  height: 100vh; 
+  height: 98.3vh;
+  box-shadow: 3px 3px 5px black;
 `
-const InputUser = styled.input`
-  width: 40%;
+const DivFilho = styled.div `
+  width: 85%;  
+  background: #bed4eb;
+  padding: 20px;
+  height: 87vh;
+  margin: 0 auto;
+  margin-top: 13px;
 `
-const InputMsg = styled.input`
-  width: 100%;
+const Caixa = styled.input`
+  height: 20px;
+  border: none;
+  border-radius: 5px;
+  padding: 5px;
+  box-shadow: 2px 2px 3px gray;
+  outline: 0;
+  width: ${props =>{
+    if (props.largura === 'media'){
+      return '18%'
+    }else if (props.largura === 'grande'){
+      return '58%'
+    }
+  }};
 `
 const Enviar = styled.button`
-  width: 20%;
+  box-shadow: 2px 2px 3px gray;
+  border: none;
+  border-radius: 5px;
+  padding: 5px;
+  width: 14%;
+  outline: 0;
 `
 const CaixaEntrada = styled.div`
   position: fixed;
-  bottom: 0;
+  bottom: 37px;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
+  width: 32%;
 `
 const CaixaSaida = styled.div`
-  bottom: 0;
+  bottom: 63px;
   position: fixed;
-  padding: 20px;
 `
 
 export class Chat extends React.Component {
@@ -57,15 +81,6 @@ export class Chat extends React.Component {
    }
   }
 
-  apagaMensagem = event => {
-    if(event.onClick === this.mensagem) {
-      confirmAlert("Deseja apagar esta mensagem?")
-      if(event.key=== 'Enter') {
-        this.setState({usuario: '', mensagem: ''})
-      }
-    }
-  }
-
   onChangeUsuario = (event) => {
     this.setState({valorUsuario: event.target.value});
   };
@@ -82,25 +97,29 @@ export class Chat extends React.Component {
     
     })
     return(
-      <DivPai>
+    <DivPai>
+      <DivFilho>
         <CaixaSaida>
           <div>{renderizaChat}</div>
         </CaixaSaida>
         <CaixaEntrada>
-          <InputUser 
+          <Caixa 
+            largura={'media'}
             onChange={this.onChangeUsuario}
             value={this.state.usuario} 
             placeholder='Usuário'>
-          </InputUser>
-          <InputMsg 
+          </Caixa>
+          <Caixa 
+            largura={'grande'}
             onChange={this.onChangeMensagem} 
             onKeyPress={this.enviaMensagem}
             value={this.state.mensagem} 
             placeholder='Mensagem'>
-          </InputMsg>
+          </Caixa>
           <Enviar onClick={this.onClickBotaoPegaMensagens}>Enviar</Enviar>
         </CaixaEntrada>
-      </DivPai>
+      </DivFilho>
+    </DivPai>  
     );
   };
 };
