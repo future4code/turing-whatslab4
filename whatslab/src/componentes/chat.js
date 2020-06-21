@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { confirmAlert } from 'react-confirm-alert'
 
 const DivPai = styled.div `
   margin: 0 auto;
@@ -37,7 +38,7 @@ export class Chat extends React.Component {
       }
     ],
     valorUsuario: '',
-    valorMensagem: ''
+     valorMensagem: ''
   };
 
   onClickBotaoPegaMensagens = () => {
@@ -47,9 +48,23 @@ export class Chat extends React.Component {
     };
     const novoChat = [...this.state.chat, newChat];
     this.setState({chat: novoChat });
-    this.setState({valorUsuario: ''});
-    this.setState({valorMensagem: ''});
+    this.setState({valorUsuario: '', valorMensagem: ''});
   };
+
+  enviaMensagem = (event) => {
+   if(event.key === 'Enter'){
+    this.onClickBotaoPegaMensagens()
+   }
+  }
+
+  apagaMensagem = event => {
+    if(event.onClick === this.mensagem) {
+      confirmAlert("Deseja apagar esta mensagem?")
+      if(event.key=== 'Enter') {
+        this.setState({usuario: '', mensagem: ''})
+      }
+    }
+  }
 
   onChangeUsuario = (event) => {
     this.setState({valorUsuario: event.target.value});
@@ -64,6 +79,7 @@ export class Chat extends React.Component {
       return (
       <p><strong>{msg.usuario}</strong>: {msg.mensagem}</p>
       )
+    
     })
     return(
       <DivPai>
@@ -72,12 +88,13 @@ export class Chat extends React.Component {
         </CaixaSaida>
         <CaixaEntrada>
           <InputUser 
-            onChange={this.onChangeUsuario} 
+            onChange={this.onChangeUsuario}
             value={this.state.usuario} 
             placeholder='Usuário'>
           </InputUser>
           <InputMsg 
             onChange={this.onChangeMensagem} 
+            onKeyPress={this.enviaMensagem}
             value={this.state.mensagem} 
             placeholder='Mensagem'>
           </InputMsg>
